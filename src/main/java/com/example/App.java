@@ -1,5 +1,7 @@
 package com.example;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -59,6 +61,10 @@ public class App {
         root.addChild("Motorcycle", motorcycle);
 
         DecisionTree decisionTree = new DecisionTree(root);
+
+        root.printTreeToFile("tree.md");
+
+
         Scanner input = new Scanner(System.in);
         String answer = decisionTree.evaluate(input);
         System.out.println("Based on your responses, we suggest: " + answer);
@@ -89,6 +95,27 @@ class Node {
     public Node addChild(String answer, Node child) {
         this.children.put(answer, child);
         return this;
+    }
+    public void printTreeToFile(String parentId, FileWriter fw) {
+        String id = question.replace(" ", "");
+        try {
+            if (parentId != null) {
+                fw.write(parentId + "--> " + id + "(" + question + ")\n");
+            }
+            for (Map.Entry<String, Node> entry : children.entrySet()) {
+                entry.getValue().printTreeToFile(id, fw);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void printTreeToFile(String fileName) {
+        try (FileWriter fw = new FileWriter(fileName)) {
+            fw.write("graph TB\n");
+            printTreeToFile(null, fw);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
