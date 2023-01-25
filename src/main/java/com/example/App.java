@@ -34,14 +34,14 @@ public class App {
                         .addChild(
                             "Honda Civic",
                             new Node("What color would you prefer?")
-                                .addChild("black", new Node("end", true, "black Honda"))
-                                .addChild("Blue", new Node("end", true, "Blue Honda"))
+                                .addChild("black", new Node("black Honda", true, "black Honda"))
+                                .addChild("Blue", new Node("Blue Honda", true, "Blue Honda"))
                         )
                         .addChild(
                             "Toyota Corolla",
                             new Node("What color would you prefer?")
-                                .addChild("black", new Node("end", true, "black Corolla"))
-                                .addChild("Blue", new Node("end", true, "Blue Corolla"))
+                                .addChild("black", new Node("black Corolla", true, "black Corolla"))
+                                .addChild("Blue", new Node("Blue Corolla", true, "Blue Corolla"))
                         )
                 )
                 .addChild(
