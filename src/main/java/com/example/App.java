@@ -2,8 +2,10 @@ package com.example;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -60,9 +62,10 @@ public class App {
                         true, "Suzuki GSX-R or Honda CBR")));
         root.addChild("Motorcycle", motorcycle);
 
+        root.printTreeToFile("tree.md");
+
         DecisionTree decisionTree = new DecisionTree(root);
 
-        root.printTreeToFile("tree.md");
 
 
         Scanner input = new Scanner(System.in);
@@ -100,7 +103,10 @@ class Node {
         String id = question.replace(" ", "");
         try {
             if (parentId != null) {
-                fw.write(parentId + "--> " + id + "(" + question + ")\n");
+                fw.write(custHash(parentId) + "--> " + custHash(id) + "(" + addLineBreak(question) + ")\n");
+            }
+            if(isLeaf) {
+                fw.write(custHash(id) + "--> " + custHash(answer) + "(" + addLineBreak(answer) + ")\n");
             }
             for (Map.Entry<String, Node> entry : children.entrySet()) {
                 entry.getValue().printTreeToFile(id, fw);
@@ -109,6 +115,21 @@ class Node {
             e.printStackTrace();
         }
     }
+    public static String custHash(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] digest = md.digest(input.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b & 0xff));
+            }
+            String hash = "a" + sb.toString().replace("-", "");
+            return hash.substring(0, 7);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void printTreeToFile(String fileName) {
         try (FileWriter fw = new FileWriter(fileName)) {
             fw.write("graph TB\n");
@@ -116,6 +137,16 @@ class Node {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private String addLineBreak(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (i > 0 && i % 20 == 0) {
+                sb.append("<br>");
+            }
+            sb.append(s.charAt(i));
+        }
+        return sb.toString();
     }
 }
 
