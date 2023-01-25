@@ -1,0 +1,73 @@
+root:
+  question: "What type of vehicle are you interested in?"
+  children:
+    Car:
+      question: "What type of car are you looking for?"
+      children:
+        Sedan:
+          question: "What is your budget for a Sedan?"
+          children:
+            "Under $20,000":
+              question: "The best options for you would be a Honda Civic or a Toyota Corolla. Which one would you prefer?"
+              end: false
+              answer: "Honda Civic or Toyota Corolla"
+              children:
+                "Honda Civic":
+                  question: "What color would you prefer?"
+                  children:
+                    black:
+                      question: "end"
+                      end: true
+                      answer: "black Honda"
+                    Blue:
+                      question: "end"
+                      end: true
+                      answer: "Blue Honda"
+                "Toyota Corolla":
+                  question: "What color would you prefer?"
+                  children:
+                    black:
+                      question: "end"
+                      end: true
+                      answer: "black Corolla"
+                    Blue:
+                      question: "end"
+                      end: true
+                      answer: "Blue Corolla"
+            "$20,000 to $30,000":
+              question: "The best options for you would be a Subaru Impreza or a Mazda3. Which one would you prefer?"
+              end: true
+              answer: "Subaru Impreza or Mazda3"
+            "Over $30,000":
+              question: "The best options for you would be a BMW 3 Series or a Audi A4. Which one would you prefer?"
+              end: true
+              answer: "BMW 3 Series or Audi A4"
+        SUV:
+          question: "What is your budget for a SUV?"
+          children:
+            "Under $30,000":
+              question: "The best options for you would be a Honda CR-V or a Toyota RAV4. Which one would you prefer?"
+              end: true
+              answer: "Honda CR-V or Toyota RAV4"
+            "$30,000 to $40,000":
+              question: "The best options for you would be a Subaru Outback or a Ford Escape. Which one would you prefer?"
+              end: true
+              answer: "Subaru Outback or Ford Escape"
+            "Over $40,000":
+              question: "The best options for you would be a BMW X3 or a Mercedes-Benz GLC. Which one would you prefer?"
+              end: true
+              answer: "BMW X3 or Mercedes-Benz GLC"
+    Motorcycle:
+      question: "What type of motorcycle are you looking for?"
+      children:
+        Cruiser:
+          question: "What is your budget for a Cruiser?"
+          children:
+            "Under $10,000":
+              question: "The best options for you would be a Honda Rebel or a Yamaha V Star. Which one would you prefer?"
+              end: true
+              answer: "Honda Rebel or Yamaha V Star"
+            "$10,000 to $15,000":
+              question: "The best options for you would be a Harley-Davidson Sportster or a Kawasaki Vulcan. Which one would you prefer?"
+              end: true
+              answer: "Harley-Davidson Sportster or
